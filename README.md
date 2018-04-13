@@ -53,7 +53,7 @@ They all can be containered in `Frame` to  update them in one function use. But 
       void setColor(sf::Color& fgColor, sf::Color& bgColor) --- sets the color of frame and main field\
       void checkFocus(sf::Vector2f click) --- checks if click was in the field\
       void update(sf::RenderWindow& app) --- see upper\
-      void setCallback(void (*_f)(void* p), void* _p = (void*)1) --- sets callback when You press `Enter`(`Return`), by default you can not set the user data(set argument): by defalut NOT EQUALS ZERO, if you call this func. If you don't need the callback by pressing `Enter`, leave this function alone.\
+      void setCallback(void (*_f)(void* p), void* _p = (void*)1) --- sets callback when You press `Enter`(`Return`), by default you can not set the user data(second argument): by defalut NOT EQUALS ZERO, if you call this func. If you don't need the callback by pressing `Enter`, leave this function alone.\
       std::string getText() --- return current text
      
     - *Frame*
@@ -68,7 +68,7 @@ They all can be containered in `Frame` to  update them in one function use. But 
       Label* getLabel(int pos)   --- grab label by pos in vector\
       Input* getInput(int pos)   --- grab input by pos in vector
       
- Using `frame.updateWidgets()` in loop between `app.clear()` and `app.display`.
+ Using `frame.updateWidgets()` in loop between `app.clear()` and `app.display()`.
  
  ASAP I'll add composition files based on `Lua`, possibility to creating and loading them to create the GUI. 
  
