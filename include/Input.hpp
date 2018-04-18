@@ -10,7 +10,7 @@
 class Input
 {
     public:
-        Input(int _x, int _y, int _h, int _w)
+        Input(float _x, float _y, int _h, int _w)
         {
             if(!font.loadFromFile("arial.ttf"))
             {
@@ -21,7 +21,7 @@ class Input
             isFocused = false;
 
             text.setFont(font);
-            text.setPosition(_x+5, _y+5);
+            text.setPosition(_x+5, _y+2);
             text.setCharacterSize(20);
 
             bgRect = new sf::RectangleShape(sf::Vector2f(_w,_h));
@@ -67,76 +67,74 @@ class Input
                 this->checkFocus(MousePos(app));
             }
 
-
-            if(isFocused == true)
+            app.draw(*bgRect);
+            app.draw(*fgRect);
+            app.draw(text);
+        }
+        void handleEvent(sf::RenderWindow& app, sf::Event e)
+        {
+            if(isFocused == true && e.type == sf::Event::KeyReleased)
             {
-                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "A" : "a");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "B" : "b");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::C)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "C" : "c");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "D" : "d");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "E" : "e");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::F)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "F" : "f");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "G" : "g");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "H" : "h");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "I" : "i");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "J" : "g");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "K" : "k");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "L" : "l");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "M" : "m");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "N" : "n");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::O)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "O" : "o");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "P" : "p");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Q" : "q");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "R" : "r");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "S" : "s");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "T" : "t");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::U)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "U" : "u");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "V" : "v");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "W" : "w");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::X)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "X" : "x");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Y" : "y");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Z" : "z");
 
-                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Quote)) InText = InText + "'";
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Period)) InText = InText + ".";
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Comma))  InText = InText + ",";
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) InText = InText + " ";
+                     if(e.key.code == sf::Keyboard::A) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "A" : "a");
+                else if(e.key.code == sf::Keyboard::B) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "B" : "b");
+                else if(e.key.code == sf::Keyboard::C) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "C" : "c");
+                else if(e.key.code == sf::Keyboard::D) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "D" : "d");
+                else if(e.key.code == sf::Keyboard::E) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "E" : "e");
+                else if(e.key.code == sf::Keyboard::F) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "F" : "f");
+                else if(e.key.code == sf::Keyboard::G) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "G" : "g");
+                else if(e.key.code == sf::Keyboard::H) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "H" : "h");
+                else if(e.key.code == sf::Keyboard::I) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "I" : "i");
+                else if(e.key.code == sf::Keyboard::J) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "J" : "g");
+                else if(e.key.code == sf::Keyboard::K) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "K" : "k");
+                else if(e.key.code == sf::Keyboard::L) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "L" : "l");
+                else if(e.key.code == sf::Keyboard::M) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "M" : "m");
+                else if(e.key.code == sf::Keyboard::N) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "N" : "n");
+                else if(e.key.code == sf::Keyboard::O) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "O" : "o");
+                else if(e.key.code == sf::Keyboard::P) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "P" : "p");
+                else if(e.key.code == sf::Keyboard::Q) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Q" : "q");
+                else if(e.key.code == sf::Keyboard::R) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "R" : "r");
+                else if(e.key.code == sf::Keyboard::S) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "S" : "s");
+                else if(e.key.code == sf::Keyboard::T) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "T" : "t");
+                else if(e.key.code == sf::Keyboard::U) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "U" : "u");
+                else if(e.key.code == sf::Keyboard::V) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "V" : "v");
+                else if(e.key.code == sf::Keyboard::W) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "W" : "w");
+                else if(e.key.code == sf::Keyboard::X) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "X" : "x");
+                else if(e.key.code == sf::Keyboard::Y) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Y" : "y");
+                else if(e.key.code == sf::Keyboard::Z) InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "Z" : "z");
 
-                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? ")" : "0");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "!" : "1");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "@" : "2");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "#" : "3");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "$" : "4");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "%" : "5");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "^" : "6");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num7))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "&" : "7");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "*" : "8");
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num9))  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "(" : "9");
+                     if(e.key.code == sf::Keyboard::Quote) InText = InText + "'";
+                else if(e.key.code == sf::Keyboard::Period) InText = InText + ".";
+                else if(e.key.code == sf::Keyboard::Comma)  InText = InText + ",";
+                else if(e.key.code == sf::Keyboard::Space) InText = InText + " ";
 
+                     if(e.key.code == sf::Keyboard::Num0)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? ")" : "0");
+                else if(e.key.code == sf::Keyboard::Num1)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "!" : "1");
+                else if(e.key.code == sf::Keyboard::Num2)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "@" : "2");
+                else if(e.key.code == sf::Keyboard::Num3)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "#" : "3");
+                else if(e.key.code == sf::Keyboard::Num4)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "$" : "4");
+                else if(e.key.code == sf::Keyboard::Num5)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "%" : "5");
+                else if(e.key.code == sf::Keyboard::Num6)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "^" : "6");
+                else if(e.key.code == sf::Keyboard::Num7)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "&" : "7");
+                else if(e.key.code == sf::Keyboard::Num8)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "*" : "8");
+                else if(e.key.code == sf::Keyboard::Num9)  InText = InText + (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)==true ? "(" : "9");
 
-
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+                if(e.key.code == sf::Keyboard::Return)
                 {
                     if(user_data != nullptr) this->runCallback();
 
                     this->changeFocus(false);
                     ///std::cout<<InText<<std::endl; DEBUG
                 }
-                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+                else if(e.key.code == sf::Keyboard::BackSpace)
                 {
                     InText = InText.substr(0, InText.size()-1);
                 }
 
                 text.setString(InText);
 
-                usleep(68000);  /// Experimental value
+                //usleep(69000);  /// Experimental value
             }
-
-
-
-            app.draw(*bgRect);
-            app.draw(*fgRect);
-            app.draw(text);
         }
 
 
@@ -151,6 +149,7 @@ class Input
         ///END
 
         std::string getText() { return InText; }
+        void setText(std::string _text) { InText = _text; }
 
     private:
         std::string InText;
