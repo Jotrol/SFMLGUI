@@ -7,7 +7,7 @@
 class Label
 {
     public:
-        Label(int _x, int _y, std::string _text)
+        Label(float _x, float _y, std::string _text)
         {
 
             if(!font.loadFromFile("arial.ttf"))
@@ -18,6 +18,8 @@ class Label
             text.setFont(font);
             text.setString(_text);
             text.setPosition(_x, _y);
+
+            text.setFillColor(sf::Color::White);
 
         }
 
@@ -45,8 +47,13 @@ class Label
         {
             app.draw(text);
         }
+        void handleEvent(sf::RenderWindow& app, sf::Event e)  /// BECAUSE WE CALL THIS FUNC FOR ALL TYPES OF WIDGET
+        {
+            return;
+        }
 
         sf::Vector2f getPosition() { return text.getPosition(); }
+        int getCharacterSize() { return text.getCharacterSize(); }
 
     private:
 

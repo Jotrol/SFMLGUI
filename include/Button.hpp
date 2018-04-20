@@ -2,6 +2,7 @@
 #define BUTTON_H
 
 #include <string>
+#include <iostream>
 
 sf::Vector2f MousePos(sf::RenderWindow& app)
 {
@@ -14,7 +15,7 @@ sf::Vector2f MousePos(sf::RenderWindow& app)
 class Button
 {
     public:
-        Button(int _x, int _y, int _h, int _w, std::string _text)
+        Button(float _x, float _y, int _h, int _w, std::string _text)
         {
             rect = new sf::RectangleShape(sf::Vector2f(_w,_h));
             rect->setPosition(sf::Vector2f(_x, _y));
@@ -26,14 +27,15 @@ class Button
 
             text.setFont(font);
             text.setString(_text);
-            text.setPosition(sf::Vector2f(rect->getPosition()));
+
+            sf::Vector2f posText( rect->getPosition().x + rect->getGlobalBounds().width/4, rect->getPosition().y + rect->getGlobalBounds().height/4);
+            text.setPosition(posText);
 
             /// DEFAULT
             text.setCharacterSize(14);
             text.setColor(sf::Color::Black);
 
             user_data = nullptr;   /// DON'T WORRY - IF YOU SET CALLBACK IT'LL WORK PERFECTLY; IT'LL REWRITE ADRESS OR SOMETHING LIKE THAT
-
         }
 
         void setTexture(std::string dir)
@@ -46,6 +48,8 @@ class Button
             }
 
             rect->setTexture(texture);
+
+            pathForTexture = dir;
         }
 
         void setCharacterSize(unsigned int _size)
@@ -55,7 +59,7 @@ class Button
 
         void checkPress(sf::Vector2f click)
         {
-            if(rect->getGlobalBounds().contains(click))
+            if(rect->getGlobalBounds().contains(click) == true)
             {
                 this->runCallback();
 
@@ -82,6 +86,10 @@ class Button
         {
             rect->setFillColor(c);
         }
+        void setTextColor(sf::Color c)
+        {
+            text.setFillColor(c);
+        }
 
         sf::Vector2f  getPosition() { return rect->getPosition(); }
         sf::Vector2f getSize()  { return rect->getSize(); }
@@ -101,9 +109,14 @@ class Button
         {
             app.draw(*rect);
             app.draw(text);
-
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && user_data != nullptr) this->checkPress(MousePos(app));
         }
+        void handleEvent(sf::RenderWindow& app, sf::Event e)
+        {
+            if(e.type == sf::Event::MouseButtonReleased && e.key.code == sf::Mouse::Left && user_data != nullptr) this->checkPress(MousePos(app));
+
+        }
+
+        int getCharacterSize() { return text.getCharacterSize(); }
 
 
     private:
@@ -116,6 +129,7 @@ class Button
         sf::Font font;
         sf::Text text;
 
+        std::string pathForTexture;  /// need to be saved in file
         sf::Texture* texture;
         sf::RectangleShape* rect;
 
