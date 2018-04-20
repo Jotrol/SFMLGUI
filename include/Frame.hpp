@@ -16,6 +16,8 @@ class Frame
 {
     public:
 
+        Frame() {}
+
         void addButton(Button* b) { buttons.push_back(b); }
         void addLabel(Label* l) { labels.push_back(l); }
         void addInput(Input* i) { inputs.push_back(i); }
@@ -41,13 +43,22 @@ class Frame
             for(auto it = inputs.begin(); it!=inputs.end(); ++it)
                 (*it)->update(app);
         }
+        void handleEvent(sf::RenderWindow& app, sf::Event e)
+        {
+            for(auto it = buttons.begin(); it!=buttons.end(); ++it)
+                (*it)->handleEvent(app, e);
+            for(auto it = labels.begin(); it!=labels.end(); ++it)
+                (*it)->handleEvent(app, e);
+            for(auto it = inputs.begin(); it!=inputs.end(); ++it)
+                (*it)->handleEvent(app, e);
+        }
 
         void loadFrameFromFile(string dir, string currentFrame)
         {
             LuaScript lua;
             lua.ScriptInit(dir);
 
-            for(int countWidgets = 1; countWidgets <= lua.getTableVar<int>(currentFrame, "countWidgets"); countWidgets++)
+            for(int countWidgets = 0; countWidgets < lua.getTableVar<int>(currentFrame, "countWidgets"); countWidgets++)
             {
                 string currentWidget = "widget"+toString<int>(countWidgets); /// For easier coding and reading
 

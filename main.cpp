@@ -30,15 +30,17 @@ int main()
 
     Frame frame1;
     Frame frame2;
+    Frame frame3;
 
     Frame outFrame;  /// FOR SWITCHING SCENES
 
-    frame1.loadFrameFromFile("frames.lua", "frame1");
+    frame1.loadFrameFromFile("frames.lua", "frame0");
         frame1.getButton(0)->setCallback(cb, frame1.getInput(0));
-    frame2.loadFrameFromFile("frames.lua", "frame2");
+    frame2.loadFrameFromFile("frames.lua", "frame1");
         frame2.getButton(0)->setCallback(cb, frame2.getInput(0));
         frame2.getInput(1)->setCallback(cb, frame2.getInput(1));
         frame2.getInput(2)->setCallback(cb, frame2.getInput(2));
+    frame3.loadFrameFromFile("file.lua", "frame");
 
 
     while (app.isOpen())
@@ -49,11 +51,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 app.close();
 
-
+            outFrame.handleEvent(app, event);
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) outFrame = frame1; /// CHANGING SCENES BY BUTTONS 1 AND 2
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) outFrame = frame2;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) outFrame = frame3;
 
         app.clear();
 
