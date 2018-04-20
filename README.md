@@ -1,15 +1,24 @@
-_You'd be an animal too, if you were trapped in this fame and caged in it like a zoo.\
-And everybody's lookin' at you.\
-What you want me to do?\
-*@ Eminem - Going Through Changes*_
+_I wanna know what it's like to be happy.\
+I wanna know what it's like to wake up in \
+the morning and feel like it's real when I'm laughin'.\
+I wanna know what it's like to sit down with my friends\
+and feel like they might understand me.\
+I wanna know that the people around me care less about\
+Grammys and more about family._\
+*@ NF - Know*
+
 
 
 # SFMLGUI
-Try to create simple SFML GUI library
 
-- Fixed bug in pressing the button causes an exit from program because the callback was not set
-- Added ability to load GUI from file, see the file in repository to know how add widgets
+ANOTHER DAY IN THE LIFE - ANOTHER UPDATE IN HUB
 
-- Want to create a GUI CREATOR for automatically creating GUI files
+Toady I add a `Gui Creator`, where you can create a gui file.\
+It's simple to chain with project, just `loadFromFile` and put in args name of file and `"frame"`.\
+Added some new functions which make you more freedom for customizing your GUI\
+  
+Now you can change the color of text in button.\
+Added new function to `Frame` for more stable callbacks. This function fix bug with a lot of presses.\
+Now you can get font size from every widget.\
 
-Don't know what to write and what to do next after GUI CREATOR, so I'll start creating game(another repository)
+_Enjoy and have a good time._
