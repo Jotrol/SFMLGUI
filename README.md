@@ -19,6 +19,6 @@ Added some new functions which make you more freedom for customizing your GUI\
   
 Now you can change the color of text in button.\
 Added new function to `Frame` for more stable callbacks. This function fix bug with a lot of presses.\
-Now you can get font size from every widget.\
+Now you can get font size from every widget.
 
 _Enjoy and have a good time._
